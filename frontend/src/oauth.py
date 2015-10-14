@@ -8,7 +8,6 @@ from urllib import urlencode
 
 FLAG_access_token = 'access_token'
 
-
 class Oauth(cherrypy.Tool):
 
     def __init__(self, oauth_settings):
