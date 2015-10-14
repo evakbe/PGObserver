@@ -61,7 +61,6 @@ class Oauth(cherrypy.Tool):
         else:
             # clean url; no special oauth parameters
             # remember endpoint where user attempts to access; may be passed to self.authorize_url
-            target_url = cherrypy.url(base=self.redirect_url, path=cherrypy.request.path_info)
 
         # main gate: user must have an access_token to proceed to application
         if not cherrypy.session.get(FLAG_access_token):
