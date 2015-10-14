@@ -9,6 +9,8 @@ from urllib import urlencode
 FLAG_access_token = 'access_token'
 
 
+cherrypy.config.update({'tools.oauthtool.on': True, 'tools.sessions.on': True, 'tools.sessions.timeout': 30})
+
 class Oauth(cherrypy.Tool):
 
     def __init__(self, oauth_settings):
@@ -64,11 +66,7 @@ class Oauth(cherrypy.Tool):
         else:
             # clean url; no special oauth parameters
             # remember endpoint where user attempts to access; may be passed to self.authorize_url
-            if self.rewrite_http_to_https:
-                target_url = cherrypy.url(qs=cherrypy.request.query_string)
-                target_url = target_url.replace('http://', 'https://')
-            else:
-                target_url = cherrypy.url(qs=cherrypy.request.query_string)
+            target_url = cherrypy.url(qs=cherrypy.request.query_string)
 
         # main gate: user must have an access_token to proceed to application
         if not cherrypy.session.get(FLAG_access_token):
